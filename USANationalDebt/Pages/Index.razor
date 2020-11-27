@@ -1,0 +1,57 @@
+﻿@page "/"
+
+
+<div class="container justify-content-center">
+    <div class="MainDiv">
+        <div class="header text-bold text-center">
+            Внешний долг&NonBreakingSpace;США
+        </div>
+        <div class="money text-bold text-center trapezoid">
+            <div class="money_outline">
+                <span class="money_text">$</span>
+                <span class="money_text" id="babki">@Debt</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+    Random random = new Random(DateTime.Now.Second);
+    public long Debt = 21198286608971;
+    public int OneSecondIncrement = 2000;
+    private int VarryRange;
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        @*Debt = APIManager.GetDebt();
+            TenSecondIncrement = APIManager.GetIncrement();*@
+        VarryRange = OneSecondIncrement / 5;
+        await Start();
+    }
+
+
+    async Task Start()
+    {
+        await Task.Delay(1000);
+        while (true)
+        {
+            await Timer();
+        }
+
+    }
+
+    async Task Timer()
+    {
+        int delay = random.Next(500, 1500);
+        await Task.Delay(delay);
+        await AfterTime();
+    }
+
+    Task AfterTime()
+    {
+        int increment = random.Next(OneSecondIncrement - VarryRange, OneSecondIncrement + VarryRange);
+        Debt += increment;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}
