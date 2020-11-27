@@ -1,9 +1,15 @@
-﻿@page "/"
-
-
-<div class="container d-flex justify-content-center flex-fill">
-    <DebtComponent></DebtComponent>
+﻿<div class="MainDiv d-flex flex-fill">
+    <div class="header text-bold text-center">
+        Внешний долг&NonBreakingSpace;США
+    </div>
+    <div class="money text-bold text-center trapezoid">
+        <div class="money_outline">
+            <span class="money_text">$</span>
+            <span class="money_text" id="babki">@Debt</span>
+        </div>
+    </div>
 </div>
+
 
 @code{
     Random random = new Random(DateTime.Now.Second);
@@ -45,3 +51,4 @@
         return Task.CompletedTask;
     }
 }
+
