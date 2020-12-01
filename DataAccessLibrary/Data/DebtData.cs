@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
-    class DebtData
+    class DebtData : IDebtData
     {
         private readonly ISQLDataAccess _db;
 
@@ -49,9 +49,10 @@ namespace DataAccessLibrary
             long diff = higher.Debt - lower.Debt;
             TimeSpan time = higher.Day - lower.Day;
             long increment = diff / time.Seconds;
-            TimeSpan span = DateTime.Now-higher.Day; 
-            long currentDebt = higher.Debt + span.Seconds*increment;
-            DebtIncreaseModel model = new DebtIncreaseModel {
+            TimeSpan span = DateTime.Now - higher.Day;
+            long currentDebt = higher.Debt + span.Seconds * increment;
+            DebtIncreaseModel model = new DebtIncreaseModel
+            {
                 Day = DateTime.Now,
                 Debt = currentDebt,
                 Increase = increment
