@@ -6,6 +6,6 @@ namespace DataAccessLibrary.Models
 {
     class DebtIncreaseModel:DebtModel
     {
-        public int Increase { get; set; }
+        public long Increase { get; set; }
     }
 }
