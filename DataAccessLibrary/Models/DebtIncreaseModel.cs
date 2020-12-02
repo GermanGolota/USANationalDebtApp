@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessLibrary.Models
 {
-    class DebtIncreaseModel:DebtModel
+    public class DebtIncreaseModel:DebtModel
     {
         public long Increase { get; set; }
     }

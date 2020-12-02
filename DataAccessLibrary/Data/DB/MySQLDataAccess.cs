@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
-    class MySQLDataAccess : ISQLDataAccess
+    public class MySQLDataAccess : ISQLDataAccess
     {
         private readonly IConfiguration _configuration;
 
@@ -47,7 +47,7 @@ namespace DataAccessLibrary
         public async Task SaveData<T>(string sql, T parameters)
         {
             string connectionString = _configuration.GetConnectionString(ConnectionStringName);
-
+            //string connectionString = "Server=localhost;Database=debtdb;Uid=root;Pwd=;";
             using (IDbConnection connection = new MySqlConnection(connectionString))
             {
                 await connection.ExecuteAsync(sql, parameters);

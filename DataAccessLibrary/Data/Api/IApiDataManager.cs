@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
-    interface IApiDataManager
+    public interface IApiDataManager
     {
-        List<DebtModel> GetDebtModels();
+        Task<List<DebtModel>> GetDebtModels();
     }
 }

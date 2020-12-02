@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
-    class DebtData : IDebtData
+    public class DebtData : IDebtData
     {
         private readonly ISQLDataAccess _db;
 
@@ -26,6 +26,7 @@ namespace DataAccessLibrary
             List<DebtModel> models = await _db.LoadDataNoParam<DebtModel>(sql);
             return models;
         }
+        //gets value with increase
         public async Task<DebtIncreaseModel> TryGetDebtInfo()
         {
             string sql = @"SELECT * FROM debtinfo ORDER BY id DESC LIMIT 1;";

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
-    interface IDebtData
+    public interface IDebtData
     {
         Task AddDebtToDB(DebtModel model);
         Task CalculateAndInsertNewInfo();
