@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "USANationalDebt", "USANationalDebt\USANationalDebt.csproj", "{04669AE2-4D40-4102-A280-436A4862D82A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{051FDDD0-C6AC-489A-859C-6F124DD3370D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{051FDDD0-C6AC-489A-859C-6F124DD3370D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingConsoleApp", "TestingConsoleApp\TestingConsoleApp.csproj", "{91A28D31-0720-406C-A159-5BC1A37A2E6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{051FDDD0-C6AC-489A-859C-6F124DD3370D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{051FDDD0-C6AC-489A-859C-6F124DD3370D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{051FDDD0-C6AC-489A-859C-6F124DD3370D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91A28D31-0720-406C-A159-5BC1A37A2E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91A28D31-0720-406C-A159-5BC1A37A2E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91A28D31-0720-406C-A159-5BC1A37A2E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91A28D31-0720-406C-A159-5BC1A37A2E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
