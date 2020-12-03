@@ -8,10 +8,9 @@ namespace TestingConsoleApp
 {
     class MockConfiguration : IConfiguration
     {
-        string c = "Server=localhost;Database=debtdb;IntegratedSecurity=yes; Uid=auth_windows;";
         public string this[string key]
         {
-            get { return c; }
+            get => throw new NotImplementedException();
             set => throw new NotImplementedException();
         }
 
@@ -27,12 +26,8 @@ namespace TestingConsoleApp
 
         public IConfigurationSection GetSection(string key)
         {
-            throw new NotImplementedException();
+            return new MockConfigurationSection();
         }
-
-        public string GetConnectionString(string name)
-        {
-            return c;
-        }
+       
     }
 }

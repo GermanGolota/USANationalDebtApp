@@ -9,8 +9,9 @@ namespace TestingConsoleApp
     {
         static void Main(string[] args)
         {
-            var container = ContainerConfig.Configure();
-
+            //bridge test
+           /* var container = ContainerConfig.Configure();
+           
             using (var scope = container.BeginLifetimeScope())
             {
                 var bridge = scope.Resolve<IAPISQLBridge>();
@@ -22,7 +23,11 @@ namespace TestingConsoleApp
                 {
                     Console.WriteLine(exc);
                 }
-            }
+            }*/
+            //config test
+            IConfiguration conf = new MockConfiguration();
+            Console.WriteLine(conf.GetConnectionString("Standard"));
+            
         }
     }
 }
