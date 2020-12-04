@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccessLibrary
@@ -47,17 +46,14 @@ namespace DataAccessLibrary
             debts = debts.OrderBy((debt) => debt.Day).ToList();
             DebtModel higher = debts.Last();
             DebtModel lower = debts.First();
-            long diff = higher.Debt - lower.Debt;
+            double diff = higher.Debt - lower.Debt;
             TimeSpan time = higher.Day - lower.Day;
-            long increment = diff / time.Seconds;
+            double increment = diff / time.Seconds;
             TimeSpan span = DateTime.Now - higher.Day;
-            long currentDebt = higher.Debt + span.Seconds * increment;
-            DebtIncreaseModel model = new DebtIncreaseModel
-            {
-                Day = DateTime.Now,
-                Debt = currentDebt,
-                Increase = increment
-            };
+            double currentDebt = higher.Debt + span.Seconds * increment;
+            DebtIncreaseModel model = new DebtIncreaseModel(DateTime.Now, currentDebt, increment);
+
+
             string sql = @"INSERT debtinfo(Day, Debt, Increase) Values(@Day, @Debt, @Increase);";
             await _db.SaveData<DebtIncreaseModel>(sql, model);
         }
