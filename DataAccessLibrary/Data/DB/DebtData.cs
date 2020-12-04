@@ -21,24 +21,24 @@ namespace DataAccessLibrary
         }
         public async Task<List<DebtModel>> GetDebtsFromDB()
         {
-            string sql = @"SELECT * FROM usadebt limit 100;";
+            string sql = @"SELECT day, debt FROM usadebt limit 100;";
             List<DebtModel> models = await _db.LoadDataNoParam<DebtModel>(sql);
             return models;
         }
         //gets value with increase
-        public async Task<DebtIncreaseModel> TryGetDebtInfo()
+        public async Task<DebtIncreaseModel> GetDebtInfo()
         {
-            string sql = @"SELECT * FROM debtinfo ORDER BY id DESC LIMIT 1;";
+            string sql = @"SELECT Day, debt, Increase FROM debtinfo ORDER BY ID DESC LIMIT 1;";
             DebtIncreaseModel model;
             try
             {
                 model = (await _db.LoadDataNoParam<DebtIncreaseModel>(sql))[0];
+                return model;
             }
             catch
             {
-                model = null;
+                throw new Exception("Can't get data from db");
             }
-            return model;
         }
         public async Task CalculateAndInsertNewInfo()
         {
@@ -48,9 +48,9 @@ namespace DataAccessLibrary
             DebtModel lower = debts.First();
             double diff = higher.Debt - lower.Debt;
             TimeSpan time = higher.Day - lower.Day;
-            double increment = diff / time.Seconds;
+            double increment = diff / time.TotalSeconds;
             TimeSpan span = DateTime.Now - higher.Day;
-            double currentDebt = higher.Debt + span.Seconds * increment;
+            double currentDebt = higher.Debt + span.TotalSeconds * increment;
             DebtIncreaseModel model = new DebtIncreaseModel(DateTime.Now, currentDebt, increment);
 
 

@@ -9,6 +9,6 @@ namespace DataAccessLibrary
         Task AddDebtToDB(DebtModel model);
         Task CalculateAndInsertNewInfo();
         Task<List<DebtModel>> GetDebtsFromDB();
-        Task<DebtIncreaseModel> TryGetDebtInfo();
+        Task<DebtIncreaseModel> GetDebtInfo();
     }
 }
