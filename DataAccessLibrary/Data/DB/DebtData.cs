@@ -26,20 +26,7 @@ namespace DataAccessLibrary
             return models;
         }
         //gets value with increase
-        public async Task<DebtIncreaseModel> GetDebtInfo()
-        {
-            string sql = @"SELECT Day, debt, Increase FROM debtinfo ORDER BY ID DESC LIMIT 1;";
-            DebtIncreaseModel model;
-            try
-            {
-                model = (await _db.LoadDataNoParam<DebtIncreaseModel>(sql))[0];
-                return model;
-            }
-            catch
-            {
-                throw new Exception("Can't get data from db");
-            }
-        }
+        
         public async Task CalculateAndInsertNewInfo()
         {
             List<DebtModel> debts = await this.GetDebtsFromDB();
