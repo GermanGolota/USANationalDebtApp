@@ -24,6 +24,9 @@
         await base.OnInitializedAsync();
         swaggerClient client = new("https://localhost:44333/", Http);
         model = await client.DebtAsync();
+        TimeSpan span = DateTime.Now - model.Day;
+        model.Day = DateTime.Now;
+        model.Debt += span.TotalSeconds * model.Increase;
         Debt = model.Debt;
         OneSecondIncrement = model.Increase;
         await Start();
@@ -47,12 +50,11 @@
         await AfterTime();
     }
 
-    Task AfterTime()
+    async Task AfterTime()
     {
-        double increment =OneSecondIncrement*((double)random.Next(60,140)/100);
+        double increment =Math.Round(OneSecondIncrement*((double)random.Next(60,140)/100),2);
         Debt += increment;
         StateHasChanged();
-        return Task.CompletedTask;
     }
 }
 
