@@ -1,4 +1,7 @@
-﻿<div class="MainDiv d-flex flex-fill">
+﻿@inject HttpClient Http
+
+
+<div class="MainDiv d-flex flex-fill">
     <div class="header text-bold text-center">
         Внешний долг&NonBreakingSpace;США
     </div>
@@ -13,15 +16,16 @@
 
 @code{
     Random random = new Random(DateTime.Now.Second);
-    public long Debt = 21198286608971;
-    public int OneSecondIncrement = 2000;
-    private int VarryRange;
+    public double Debt = 21198286608971;
+    public double OneSecondIncrement = 2000;
+    private DebtIncreaseModel model;
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        @*Debt=;
-            TenSecondIncrement =;*@
-        VarryRange = OneSecondIncrement / 5;
+        swaggerClient client = new("https://localhost:44333/", Http);
+        model = await client.DebtAsync();
+        Debt = model.Debt;
+        OneSecondIncrement = model.Increase;
         await Start();
     }
 
@@ -45,7 +49,7 @@
 
     Task AfterTime()
     {
-        int increment = random.Next(OneSecondIncrement - VarryRange, OneSecondIncrement + VarryRange);
+        double increment =OneSecondIncrement*((double)random.Next(60,140)/100);
         Debt += increment;
         StateHasChanged();
         return Task.CompletedTask;
