@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Data.DB
 {
-    interface IClientAccess
+    public interface IClientAccess
     {
         Task<DebtIncreaseModel> GetDebtInfo();
     }

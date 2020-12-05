@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Data.DB
 {
-    class ClientAccess : IClientAccess
+    public class ClientAccess : IClientAccess
     {
         private readonly ISQLDataAccess _db;
 
@@ -23,9 +23,9 @@ namespace DataAccessLibrary.Data.DB
                 model = (await _db.LoadDataNoParam<DebtIncreaseModel>(sql))[0];
                 return model;
             }
-            catch
+            catch(Exception exc)
             {
-                throw new Exception("Can't get data from db");
+                throw exc;
             }
         }
     }
