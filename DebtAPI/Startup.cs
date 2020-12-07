@@ -27,6 +27,7 @@ namespace DebtAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //allows webassembly app to access
             services.AddCors(
                 (options) =>
                 {
@@ -37,8 +38,12 @@ namespace DebtAPI
                           .WithMethods("GET");
                     });
                 });
+
+
             services.AddControllers();
 
+
+            //injects client access
             services.AddScoped<ClientAccess>();
             services.AddScoped<IClientAccess>(
                 (x) => { return x.GetRequiredService<ClientAccess>(); }
@@ -48,7 +53,7 @@ namespace DebtAPI
                 (x) => { return x.GetRequiredService<MySQLDataAccess>(); }
                 );
 
-
+            //adds swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DebtAPI", Version = "v1" });

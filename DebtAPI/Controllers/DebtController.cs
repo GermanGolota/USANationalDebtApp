@@ -22,10 +22,17 @@ namespace DebtAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<DebtIncreaseModel> Get()
+        public async Task<ActionResult<DebtIncreaseModel>> GetDebtModel()
         {
             DebtIncreaseModel model = await _db.GetDebtInfo();
-            return model;
+            if (model is not null)
+            {
+                return Ok(model);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
