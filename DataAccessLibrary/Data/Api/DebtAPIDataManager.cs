@@ -8,12 +8,12 @@ using Newtonsoft.Json;
 
 namespace DataAccessLibrary
 {
-    public class DebtAPI : IApiDataManager
+    public class DebtAPIDataManager : IApiDataManager
     {
         private readonly IAPIClient _client;
         private readonly IModelConverter _converter;
 
-        public DebtAPI(IAPIClient client, IModelConverter converter)
+        public DebtAPIDataManager(IAPIClient client, IModelConverter converter)
         {
             this._client = client;
             this._converter = converter;
