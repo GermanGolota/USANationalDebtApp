@@ -1,10 +1,11 @@
 ﻿using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.DbModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DebtAPI
+namespace DataAccessLibrary.Data.DB
 {
     public class DebtContext:DbContext
     {

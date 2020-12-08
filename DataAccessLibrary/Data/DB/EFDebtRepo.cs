@@ -1,11 +1,12 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.DbModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DebtAPI.DB
+namespace DataAccessLibrary.Data.DB
 {
     public class EFDebtRepo : IDebtData
     {

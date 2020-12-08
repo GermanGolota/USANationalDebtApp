@@ -1,7 +1,8 @@
 using DataAccessLibrary;
+using DataAccessLibrary.Data.API;
 using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
-using DebtAPI.DB;
+using DataAccessLibrary.Models.ApiModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;

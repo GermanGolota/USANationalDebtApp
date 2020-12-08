@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace DataAccessLibrary
+namespace DataAccessLibrary.Data.API
 {
     public class APIClient : IAPIClient
     {

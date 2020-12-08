@@ -1,10 +1,11 @@
 ﻿using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.DbModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLibrary
+namespace DataAccessLibrary.Data.API
 {
     //Class, that is used to test db system, that depends on the api, without actually implementing api
     public class MockApiDataManager : IApiDataManager

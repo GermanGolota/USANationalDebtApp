@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace DataAccessLibrary
+namespace DataAccessLibrary.Data.API
 {
     public interface IAPIClient
     {

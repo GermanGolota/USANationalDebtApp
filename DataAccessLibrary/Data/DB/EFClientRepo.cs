@@ -1,12 +1,13 @@
 ﻿using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.DbModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DebtAPI.DB
+namespace DataAccessLibrary.Data.DB
 {
     public class EFClientRepo : IClientAccess
     {

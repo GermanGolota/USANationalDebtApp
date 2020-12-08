@@ -1,8 +1,9 @@
-﻿using System;
+﻿using DataAccessLibrary.Models.DbModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccessLibrary.Models
+namespace DataAccessLibrary.Models.ApiModels
 {
     public class ModelConverter : IModelConverter
     {
