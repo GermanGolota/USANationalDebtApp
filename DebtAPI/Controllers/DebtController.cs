@@ -22,9 +22,11 @@ namespace DebtAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<DebtIncreaseModel>> GetDebtModel()
+        public async Task<ActionResult<DebtModelRead>> GetDebtModel()
         {
-            DebtIncreaseModel model = await _db.GetDebtInfo();
+            DebtIncreaseModel dbmodel = await _db.GetDebtInfo();
+            //TODO:add automapper
+            DebtModelRead model = new DebtModelRead {Day =dbmodel.Day,Debt= dbmodel.Debt,Increase=dbmodel.Increase };
             if (model is not null)
             {
                 return Ok(model);
