@@ -1,9 +1,12 @@
 using DataAccessLibrary;
 using DataAccessLibrary.Data.DB;
+using DataAccessLibrary.Models;
+using DebtAPI.DB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -41,18 +44,18 @@ namespace DebtAPI
 
 
             services.AddControllers();
+            //adds API
+            services.AddScoped<IModelConverter, ModelConverter>();
+            services.AddScoped<IAPIClient, APIClient>();
+            services.AddScoped<IApiDataManager, DebtAPIDataManager>();
+            //dbContext
 
+            services.AddDbContext<DebtContext>(
+                opt=>opt.UseSqlServer(Configuration.GetConnectionString("Standard")));
 
-            //injects client access
-            services.AddScoped<ClientAccess>();
-            services.AddScoped<IClientAccess>(
-                (x) => { return x.GetRequiredService<ClientAccess>(); }
-                );
-            services.AddScoped<MySQLDataAccess>();
-            services.AddScoped<ISQLDataAccess>(
-                (x) => { return x.GetRequiredService<MySQLDataAccess>(); }
-                );
-
+            //Adds repos
+            services.AddScoped<IClientAccess, EFClientRepo>();
+            services.AddScoped<IDebtData, EFDebtRepo>();
             //adds swagger
             services.AddSwaggerGen(c =>
             {
