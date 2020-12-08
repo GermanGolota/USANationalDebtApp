@@ -1,5 +1,8 @@
+using DataAccessLibrary;
+using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,11 +14,23 @@ namespace DebtAPI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            host.Run();
         }
-
+        public static async Task GetDataFromAPIAndPutItIntoDB(IApiDataManager api, IDebtData debtData)
+        {
+            List<DebtModel> models = await api.GetDebtModels();
+            foreach (var model in models)
+            {
+                await debtData.AddDebtToDB(model);
+            }
+        }
+        public static async Task RecalculateGrowth(IDebtData debtData)
+        {
+            await debtData.CalculateAndInsertNewInfo();
+        }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
