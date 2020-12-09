@@ -8,12 +8,13 @@ namespace TestingConsoleApp
 {
     class MockConfigurationSection : IConfigurationSection
     {
-        string c = "Server=localhost;Database=debtdb;IntegratedSecurity=yes; Uid=auth_windows;";
+        //redo
+        string connectionString = "Server=localhost;Database=debtdb;Uid=debtAccessor;Pwd=123;";
         public string this[string key]
         {
             get
             {
-                return c;
+                return connectionString;
             }
             set => throw new NotImplementedException();
         }
