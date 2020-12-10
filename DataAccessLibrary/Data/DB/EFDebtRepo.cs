@@ -45,6 +45,10 @@ namespace DataAccessLibrary.Data.DB
             _context.SaveChanges();
         }
 
+        /*private IncreaseModelBase CalculateIncreaseModel()
+        { 
+
+        }*/
         public async Task<List<InternalDebtModel>> GetDebtsFromDB()
         {
             return _context.InternalDebtsAPI.ToList();
