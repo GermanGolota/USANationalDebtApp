@@ -3,6 +3,7 @@ using DataAccessLibrary.Data.API;
 using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.DbModels;
+using DataAccessLibrary.Models.DBModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,10 +25,11 @@ namespace DebtAPI
         }
         public static async Task GetDataFromAPIAndPutItIntoDB(IApiDataManager api, IDebtData debtData)
         {
-            List<InternalDebtModel> models = await api.GetDebtModels();
+            List<KeyValuePair<InternalDebtModel,ExternalDebtModel>> models = await api.GetDebtModels();
             foreach (var model in models)
             {
-                await debtData.AddDebtToDB(model);
+                await debtData.AddDebtToDB(model.Key);
+                await debtData.AddDebtToDB(model.Value);
             }
         }
         public static async Task RecalculateGrowth(IDebtData debtData)

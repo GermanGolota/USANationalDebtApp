@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.DbModels;
+using DataAccessLibrary.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,9 @@ namespace DataAccessLibrary.Data.DB
         {
 
         }
-        public DbSet<InternalDebtModel> DebtAPIInfos { get; set; }
+        public DbSet<InternalDebtModel> InternalDebtsAPI{ get; set; }
 
+        public DbSet<ExternalDebtModel> ExternalDebtsAPI { get; set; }
         public DbSet<DebtIncreaseModel> DebtInfos { get; set; }
     }
 }

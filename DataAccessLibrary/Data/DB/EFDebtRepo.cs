@@ -19,13 +19,19 @@ namespace DataAccessLibrary.Data.DB
         }
         public async Task AddDebtToDB(InternalDebtModel model)
         {
-            _context.DebtAPIInfos.Add(model);
+            _context.InternalDebtsAPI.Add(model);
+            _context.SaveChanges();
+        }
+
+        public async Task AddDebtToDB(ExternalDebtModel model)
+        {
+            _context.ExternalDebtsAPI.Add(model);
             _context.SaveChanges();
         }
 
         public async Task CalculateAndInsertNewInfo()
         {
-            List<InternalDebtModel> debts = _context.DebtAPIInfos.ToList();
+            List<InternalDebtModel> debts = _context.InternalDebtsAPI.ToList();
             debts = debts.OrderBy((debt) => debt.Day).ToList();
             InternalDebtModel higher = debts.Last();
             InternalDebtModel lower = debts.First();
@@ -41,7 +47,7 @@ namespace DataAccessLibrary.Data.DB
 
         public async Task<List<InternalDebtModel>> GetDebtsFromDB()
         {
-            return _context.DebtAPIInfos.ToList();
+            return _context.InternalDebtsAPI.ToList();
         }
     }
 }
