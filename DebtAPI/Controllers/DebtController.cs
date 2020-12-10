@@ -2,7 +2,6 @@
 using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.DbModels;
-using DataAccessLibrary.Models.DBModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,27 +23,11 @@ namespace DebtAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<DebtModelRead>> GetExternalDebtModel()
+        public async Task<ActionResult<DebtModelRead>> GetDebtModel()
         {
-            ExternalIncreaseModel dbmodel = await _db.GetExternalDebtInfo();
+            InternalIncreaseModel dbmodel = await _db.GetExternalDebtInfo();
             //TODO:add automapper
             DebtModelRead model = new DebtModelRead {Day =dbmodel.Day,Debt= dbmodel.Debt,Increase=dbmodel.Increase };
-            if (model is not null)
-            {
-                return Ok(model);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<DebtModelRead>> GetInternalDebtModel()
-        {
-            InternalIncreaseModel dbmodel = await _db.GetInternalDebtInfo();
-            //TODO:add automapper
-            DebtModelRead model = new DebtModelRead { Day = dbmodel.Day, Debt = dbmodel.Debt, Increase = dbmodel.Increase };
             if (model is not null)
             {
                 return Ok(model);
