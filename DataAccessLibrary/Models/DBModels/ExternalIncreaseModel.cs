@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataAccessLibrary.Models.DBModels
 {
-    public class ExternalIncreaseModel
+    public class ExternalIncreaseModel : IncreaseModelBase
     {
         public ExternalIncreaseModel(DateTime day, double debt, double increase)
         {
@@ -13,13 +13,5 @@ namespace DataAccessLibrary.Models.DBModels
             Debt = debt;
             Increase = increase;
         }
-        [Key]
-        public int Id { get; set; }
-        [Required]
-        public DateTime Day { get; set; }
-        [Required]
-        public double Debt { get; set; }
-        [Required]
-        public double Increase { get; set; }
     }
 }
