@@ -12,6 +12,5 @@ namespace DataAccessLibrary.Data.DB
         Task AddDebtToDB(InternalDebtModel model);
         Task AddDebtToDB(ExternalDebtModel model);
         Task CalculateAndInsertNewInfo();
-        Task<List<InternalDebtModel>> GetDebtsFromDB();
     }
 }

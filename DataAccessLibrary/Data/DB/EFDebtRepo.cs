@@ -31,27 +31,34 @@ namespace DataAccessLibrary.Data.DB
 
         public async Task CalculateAndInsertNewInfo()
         {
-            List<InternalDebtModel> debts = _context.InternalDebtsAPI.ToList();
-            debts = debts.OrderBy((debt) => debt.Day).ToList();
-            InternalDebtModel higher = debts.Last();
-            InternalDebtModel lower = debts.First();
+            IEnumerable<InternalDebtModel> internalDebts = _context.InternalDebtsAPI;
+            InternalIncreaseModel internalModel =CalculateIncreaseModel(internalDebts) as InternalIncreaseModel;
+            _context.InternalDebtsInfo.Add(internalModel);
+
+            IEnumerable<ExternalDebtModel> externalDebts = _context.ExternalDebtsAPI;
+            ExternalIncreaseModel externalModel = CalculateIncreaseModel(externalDebts) as ExternalIncreaseModel;
+            _context.ExternalDebtsInfo.Add(externalModel);
+
+            _context.SaveChanges();
+        }
+
+        private IncreaseModelBase CalculateIncreaseModel(IEnumerable<DebtModelBase> models)
+        {
+            models = models.OrderBy((debt) => debt.Day).ToList();
+            DebtModelBase higher = models.Last();
+            DebtModelBase lower = models.First();
             double diff = higher.Debt - lower.Debt;
             TimeSpan time = higher.Day - lower.Day;
             double increment = diff / time.TotalSeconds;
             TimeSpan span = DateTime.Now - higher.Day;
             double currentDebt = higher.Debt + span.TotalSeconds * increment;
-            InternalIncreaseModel model = new InternalIncreaseModel(DateTime.Now, currentDebt, increment);
-            _context.InternalDebtsInfo.Add(model);
-            _context.SaveChanges();
-        }
-
-        /*private IncreaseModelBase CalculateIncreaseModel()
-        { 
-
-        }*/
-        public async Task<List<InternalDebtModel>> GetDebtsFromDB()
-        {
-            return _context.InternalDebtsAPI.ToList();
+            IncreaseModelBase model = new IncreaseModelBase
+            {
+                Day = DateTime.Now,
+                Debt = currentDebt,
+                Increase = increment
+            };
+            return model;
         }
     }
 }
