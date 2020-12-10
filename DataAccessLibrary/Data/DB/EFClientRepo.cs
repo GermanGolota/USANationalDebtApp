@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.DbModels;
+using DataAccessLibrary.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,15 @@ namespace DataAccessLibrary.Data.DB
         {
             this._context = context;
         }
-        public async Task<InternalIncreaseModel> GetDebtInfo()
+
+        public async Task<ExternalIncreaseModel> GetExternalDebtInfo()
+        {
+            int max = _context.ExternalDebtsInfo.Max(i => i.Id);
+            ExternalIncreaseModel model = _context.ExternalDebtsInfo.First(x => x.Id == max);
+            return model;
+        }
+
+        public async Task<InternalIncreaseModel> GetInternalDebtInfo()
         {
             int max = _context.InternalDebtsInfo.Max(i => i.Id);
             InternalIncreaseModel model = _context.InternalDebtsInfo.First(x => x.Id == max);
