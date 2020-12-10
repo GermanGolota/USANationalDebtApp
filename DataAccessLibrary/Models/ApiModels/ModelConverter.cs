@@ -18,5 +18,15 @@ namespace DataAccessLibrary.Models.ApiModels
 
             return new KeyValuePair<InternalDebtModel, ExternalDebtModel>(model, extModel);
         }
+        public ExternalIncreaseModel ConvertExternalFromBaseModel(IncreaseModelBase model)
+        {
+            ExternalIncreaseModel externalModel = new ExternalIncreaseModel(model.Day, model.Debt, model.Increase);
+            return externalModel;
+        }
+        public InternalIncreaseModel ConvertInternalFromBaseModel(IncreaseModelBase model)
+        {
+            InternalIncreaseModel internalModel = new InternalIncreaseModel(model.Day, model.Debt, model.Increase);
+            return internalModel;
+        }
     }
 }

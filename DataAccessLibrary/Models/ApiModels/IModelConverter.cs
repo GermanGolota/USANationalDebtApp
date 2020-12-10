@@ -6,6 +6,10 @@ namespace DataAccessLibrary.Models.ApiModels
 {
     public interface IModelConverter
     {
-        KeyValuePair<InternalDebtModel,ExternalDebtModel> ConvertModelFromAPI(DebtAPIModel apimodel);
+        KeyValuePair<InternalDebtModel, ExternalDebtModel> ConvertModelFromAPI(DebtAPIModel apimodel);
+
+        ExternalIncreaseModel ConvertExternalFromBaseModel(IncreaseModelBase model);
+
+        InternalIncreaseModel ConvertInternalFromBaseModel(IncreaseModelBase model);
     }
 }

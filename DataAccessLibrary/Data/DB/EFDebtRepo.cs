@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.ApiModels;
 using DataAccessLibrary.Models.DbModels;
 using DataAccessLibrary.Models.DBModels;
 using System;
@@ -12,10 +13,12 @@ namespace DataAccessLibrary.Data.DB
     public class EFDebtRepo : IDebtData
     {
         private readonly DebtContext _context;
+        private readonly IModelConverter _converter;
 
-        public EFDebtRepo(DebtContext context)
+        public EFDebtRepo(DebtContext context, IModelConverter converter)
         {
             this._context = context;
+            this._converter = converter;
         }
         public async Task AddDebtToDB(InternalDebtModel model)
         {
@@ -31,12 +34,12 @@ namespace DataAccessLibrary.Data.DB
 
         public async Task CalculateAndInsertNewInfo()
         {
-            IEnumerable<InternalDebtModel> internalDebts = _context.InternalDebtsAPI;
-            InternalIncreaseModel internalModel =CalculateIncreaseModel(internalDebts) as InternalIncreaseModel;
+            List<InternalDebtModel> internalDebts = _context.InternalDebtsAPI.ToList();
+            InternalIncreaseModel internalModel =_converter.ConvertInternalFromBaseModel(CalculateIncreaseModel(internalDebts));
             _context.InternalDebtsInfo.Add(internalModel);
 
-            IEnumerable<ExternalDebtModel> externalDebts = _context.ExternalDebtsAPI;
-            ExternalIncreaseModel externalModel = CalculateIncreaseModel(externalDebts) as ExternalIncreaseModel;
+            List<ExternalDebtModel> externalDebts = _context.ExternalDebtsAPI.ToList();
+            ExternalIncreaseModel externalModel = _converter.ConvertExternalFromBaseModel((CalculateIncreaseModel(externalDebts)));
             _context.ExternalDebtsInfo.Add(externalModel);
 
             _context.SaveChanges();
