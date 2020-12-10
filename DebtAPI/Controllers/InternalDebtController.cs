@@ -13,11 +13,11 @@ namespace DebtAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DebtController : ControllerBase
+    public class InternalDebtController : ControllerBase
     {
         private readonly IClientAccess _db;
 
-        public DebtController(IClientAccess db)
+        public InternalDebtController(IClientAccess db)
         {
             this._db = db;
         }
@@ -25,7 +25,7 @@ namespace DebtAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<DebtModelRead>> GetDebtModel()
         {
-            InternalIncreaseModel dbmodel = await _db.GetExternalDebtInfo();
+            InternalIncreaseModel dbmodel = await _db.GetInternalDebtInfo();
             //TODO:add automapper
             DebtModelRead model = new DebtModelRead {Day =dbmodel.Day,Debt= dbmodel.Debt,Increase=dbmodel.Increase };
             if (model is not null)
