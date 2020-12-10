@@ -40,8 +40,8 @@ namespace DataAccessLibrary.Data.DB
             double increment = diff / time.TotalSeconds;
             TimeSpan span = DateTime.Now - higher.Day;
             double currentDebt = higher.Debt + span.TotalSeconds * increment;
-            DebtIncreaseModel model = new DebtIncreaseModel(DateTime.Now, currentDebt, increment);
-            _context.DebtInfos.Add(model);
+            InternalIncreaseModel model = new InternalIncreaseModel(DateTime.Now, currentDebt, increment);
+            _context.InternalDebtsInfo.Add(model);
             _context.SaveChanges();
         }
 

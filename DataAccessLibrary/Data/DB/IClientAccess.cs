@@ -6,6 +6,6 @@ namespace DataAccessLibrary.Data.DB
 {
     public interface IClientAccess
     {
-        Task<DebtIncreaseModel> GetDebtInfo();
+        Task<InternalIncreaseModel> GetDebtInfo();
     }
 }

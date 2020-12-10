@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace DataAccessLibrary.Models.DbModels
+namespace DataAccessLibrary.Models.DBModels
 {
-    public class DebtIncreaseModel
+    public class ExternalIncreaseModel
     {
-        public DebtIncreaseModel(DateTime day, double debt, double increase )
+        public ExternalIncreaseModel(DateTime day, double debt, double increase)
         {
             Day = day;
             Debt = debt;

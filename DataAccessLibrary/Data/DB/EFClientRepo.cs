@@ -17,10 +17,10 @@ namespace DataAccessLibrary.Data.DB
         {
             this._context = context;
         }
-        public async Task<DebtIncreaseModel> GetDebtInfo()
+        public async Task<InternalIncreaseModel> GetDebtInfo()
         {
-            int max = _context.DebtInfos.Max(i => i.Id);
-            DebtIncreaseModel model = _context.DebtInfos.First(x => x.Id == max);
+            int max = _context.InternalDebtsInfo.Max(i => i.Id);
+            InternalIncreaseModel model = _context.InternalDebtsInfo.First(x => x.Id == max);
             return model;
         }
     }

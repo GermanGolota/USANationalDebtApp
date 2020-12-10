@@ -4,14 +4,16 @@ using DataAccessLibrary.Data.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DebtAPI.Migrations
 {
     [DbContext(typeof(DebtContext))]
-    partial class DebtContextModelSnapshot : ModelSnapshot
+    [Migration("20201210073329_ExternalDebtMigration")]
+    partial class ExternalDebtMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

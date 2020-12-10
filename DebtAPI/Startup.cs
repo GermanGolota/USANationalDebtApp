@@ -52,7 +52,7 @@ namespace DebtAPI
             //dbContext
 
             services.AddDbContext<DebtContext>(
-                opt=>opt.UseSqlServer(Configuration.GetConnectionString("Standard")));
+                opt=>opt.UseSqlServer(Configuration.GetConnectionString("Standard"), b => b.MigrationsAssembly(nameof(DebtAPI))));
 
             //Adds repos
             services.AddScoped<IClientAccess, EFClientRepo>();

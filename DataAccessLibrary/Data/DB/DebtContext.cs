@@ -15,8 +15,9 @@ namespace DataAccessLibrary.Data.DB
 
         }
         public DbSet<InternalDebtModel> InternalDebtsAPI{ get; set; }
-
         public DbSet<ExternalDebtModel> ExternalDebtsAPI { get; set; }
-        public DbSet<DebtIncreaseModel> DebtInfos { get; set; }
+        public DbSet<InternalIncreaseModel> InternalDebtsInfo { get; set; }
+        public DbSet<ExternalIncreaseModel> ExternalDebtsInfo { get; set; }
+
     }
 }
