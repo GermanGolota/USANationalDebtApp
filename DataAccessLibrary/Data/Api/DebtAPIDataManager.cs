@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using DataAccessLibrary.Models.ApiModels;
 using DataAccessLibrary.Models.DbModels;
+using DataAccessLibrary.Models.DBModels;
 
 namespace DataAccessLibrary.Data.API
 {
@@ -20,7 +21,7 @@ namespace DataAccessLibrary.Data.API
             this._client = client;
             this._converter = converter;
         }
-        public async Task<List<DebtModel>> GetDebtModels()
+        public async Task<List<KeyValuePair<InternalDebtModel,ExternalDebtModel>>> GetDebtModels()
         {
             string url = "https://www.transparency.treasury.gov/services/api/fiscal_service/v1/accounting/od/debt_to_penny?sort=-data_date&format=json";
             using (HttpResponseMessage response = await _client.Client.GetAsync(url))
@@ -29,7 +30,8 @@ namespace DataAccessLibrary.Data.API
                 {
                     string modelsString = await response.Content.ReadAsStringAsync();
                     DebtAPIArray models = JsonConvert.DeserializeObject<DebtAPIArray>(modelsString);
-                    List<DebtModel> output =new List<DebtModel>();
+                    List<KeyValuePair<InternalDebtModel, ExternalDebtModel>> output = 
+                        new List<KeyValuePair<InternalDebtModel, ExternalDebtModel>>();
                     foreach (DebtAPIModel model in models.data)
                     {
                         output.Add(_converter.ConvertModelFromAPI(model));

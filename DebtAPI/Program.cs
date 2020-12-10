@@ -24,7 +24,7 @@ namespace DebtAPI
         }
         public static async Task GetDataFromAPIAndPutItIntoDB(IApiDataManager api, IDebtData debtData)
         {
-            List<DebtModel> models = await api.GetDebtModels();
+            List<InternalDebtModel> models = await api.GetDebtModels();
             foreach (var model in models)
             {
                 await debtData.AddDebtToDB(model);

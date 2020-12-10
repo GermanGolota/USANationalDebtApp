@@ -13,7 +13,7 @@ namespace DataAccessLibrary.Data.DB
         {
 
         }
-        public DbSet<DebtModel> DebtAPIInfos { get; set; }
+        public DbSet<InternalDebtModel> DebtAPIInfos { get; set; }
 
         public DbSet<DebtIncreaseModel> DebtInfos { get; set; }
     }

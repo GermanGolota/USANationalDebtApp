@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.DbModels;
+using DataAccessLibrary.Models.DBModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace DataAccessLibrary.Data.DB
         {
             this._context = context;
         }
-        public async Task AddDebtToDB(DebtModel model)
+        public async Task AddDebtToDB(InternalDebtModel model)
         {
             _context.DebtAPIInfos.Add(model);
             _context.SaveChanges();
@@ -24,10 +25,10 @@ namespace DataAccessLibrary.Data.DB
 
         public async Task CalculateAndInsertNewInfo()
         {
-            List<DebtModel> debts = _context.DebtAPIInfos.ToList();
+            List<InternalDebtModel> debts = _context.DebtAPIInfos.ToList();
             debts = debts.OrderBy((debt) => debt.Day).ToList();
-            DebtModel higher = debts.Last();
-            DebtModel lower = debts.First();
+            InternalDebtModel higher = debts.Last();
+            InternalDebtModel lower = debts.First();
             double diff = higher.Debt - lower.Debt;
             TimeSpan time = higher.Day - lower.Day;
             double increment = diff / time.TotalSeconds;
@@ -38,7 +39,7 @@ namespace DataAccessLibrary.Data.DB
             _context.SaveChanges();
         }
 
-        public async Task<List<DebtModel>> GetDebtsFromDB()
+        public async Task<List<InternalDebtModel>> GetDebtsFromDB()
         {
             return _context.DebtAPIInfos.ToList();
         }

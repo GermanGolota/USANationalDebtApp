@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DataAccessLibrary.Models.DbModels
 {
-    public class DebtModel
+    public class ExternalDebtModel
     {
-        public DebtModel(DateTime day, double debt)
+        public ExternalDebtModel(DateTime day, double debt)
         {
             Day = day;
             Debt = debt;

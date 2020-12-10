@@ -8,8 +8,8 @@ namespace DataAccessLibrary.Data.DB
 {
     public interface IDebtData
     {
-        Task AddDebtToDB(DebtModel model);
+        Task AddDebtToDB(InternalDebtModel model);
         Task CalculateAndInsertNewInfo();
-        Task<List<DebtModel>> GetDebtsFromDB();
+        Task<List<InternalDebtModel>> GetDebtsFromDB();
     }
 }

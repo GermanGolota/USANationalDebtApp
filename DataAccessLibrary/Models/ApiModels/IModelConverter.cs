@@ -1,9 +1,11 @@
 ﻿using DataAccessLibrary.Models.DbModels;
+using DataAccessLibrary.Models.DBModels;
+using System.Collections.Generic;
 
 namespace DataAccessLibrary.Models.ApiModels
 {
     public interface IModelConverter
     {
-        DebtModel ConvertModelFromAPI(DebtAPIModel apimodel);
+        KeyValuePair<InternalDebtModel,ExternalDebtModel> ConvertModelFromAPI(DebtAPIModel apimodel);
     }
 }
