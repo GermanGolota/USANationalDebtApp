@@ -22,7 +22,9 @@ namespace DataAccessLibrary.Data.DB
         }
         public async Task AddDebtToDB(InternalDebtModel model)
         {
-            if (!_context.InternalDebtsAPI.Contains(model))
+            List<InternalDebtModel> models = _context.InternalDebtsAPI.ToList();
+            List<InternalDebtModel> dbmodel = models.Where(x => x.Day == model.Day).ToList();
+            if(dbmodel.Count==0)
             {
                 _context.InternalDebtsAPI.Add(model);
                 _context.SaveChanges();
@@ -31,7 +33,9 @@ namespace DataAccessLibrary.Data.DB
 
         public async Task AddDebtToDB(ExternalDebtModel model)
         {
-            if (!_context.ExternalDebtsAPI.Contains(model))
+            List<ExternalDebtModel> models = _context.ExternalDebtsAPI.ToList();
+            List<ExternalDebtModel> dbmodel = models.Where(x => x.Day == model.Day).ToList();
+            if (dbmodel.Count == 0)
             {
                 _context.ExternalDebtsAPI.Add(model);
                 _context.SaveChanges();
