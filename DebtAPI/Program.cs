@@ -4,6 +4,8 @@ using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.DbModels;
 using DataAccessLibrary.Models.DBModels;
+using DebtAPI.Hangfire;
+using Hangfire;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,21 +23,17 @@ namespace DebtAPI
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
+            {
+                var provider = scope.ServiceProvider;
+                RecurringJob.AddOrUpdate<HangfireActions>("RecalculateJob",
+                    x=>x.RecalculateGrowth(), Cron.Hourly);
+                RecurringJob.AddOrUpdate<HangfireActions>("APIJob",
+                    x => x.GetDataFromAPIAndPutItIntoDB(), Cron.Weekly);
+            }
             host.Run();
         }
-        public static async Task GetDataFromAPIAndPutItIntoDB(IApiDataManager api, IDebtData debtData)
-        {
-            List<KeyValuePair<InternalDebtModel,ExternalDebtModel>> models = await api.GetDebtModels();
-            foreach (var model in models)
-            {
-                await debtData.AddDebtToDB(model.Key);
-                await debtData.AddDebtToDB(model.Value);
-            }
-        }
-        public static async Task RecalculateGrowth(IDebtData debtData)
-        {
-            await debtData.CalculateAndInsertNewInfo();
-        }
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

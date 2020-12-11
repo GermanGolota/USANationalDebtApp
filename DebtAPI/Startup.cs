@@ -3,6 +3,9 @@ using DataAccessLibrary.Data.API;
 using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.ApiModels;
+using DebtAPI.Hangfire;
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -52,7 +55,7 @@ namespace DebtAPI
             //dbContext
 
             services.AddDbContext<DebtContext>(
-                opt=>opt.UseSqlServer(Configuration.GetConnectionString("Standard"), b => b.MigrationsAssembly(nameof(DebtAPI))));
+                opt => opt.UseSqlServer(Configuration.GetConnectionString("Standard"), b => b.MigrationsAssembly(nameof(DebtAPI))));
 
             //Adds repos
             services.AddScoped<IClientAccess, EFClientRepo>();
@@ -62,15 +65,27 @@ namespace DebtAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DebtAPI", Version = "v1" });
             });
+
+            //adds hangfire
+            services.AddHangfire(config =>
+            {
+                config.UseSqlServerStorage(Configuration.GetConnectionString("Standard"));
+            });
+            JobStorage.Current = new SqlServerStorage(Configuration.GetConnectionString("Standard"));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
+            GlobalConfiguration.Configuration.UseActivator(new HangfireActivator(serviceProvider));
+
+            app.UseHangfireServer();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DebtAPI v1"));
+                app.UseHangfireDashboard();
             }
 
             app.UseHttpsRedirection();
