@@ -1,31 +1,3 @@
 ﻿@page "/"
-@inject HttpClient Http
 
-
-@if (ExternalModel is not null)
-{
-    <div class="container d-flex justify-content-center flex-fill">
-        <DebtComponent Title="Внешний долг США" model="@ExternalModel"
-                       ActualTime="@(ExternalModel.Day.DateTime)"></DebtComponent>
-    </div>
-}
-else
-{
-    <div class="container d-flex justify-content-center flex-fill">
-        Loading...
-    </div>
-}
-
-@code{
-    public DebtModelRead ExternalModel { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        swaggerClient client = new("https://localhost:44333/", Http);
-        ExternalModel = await client.ExternalDebtAsync();
-        TimeSpan span = DateTime.Now - ExternalModel.Day;
-        ExternalModel.Day = DateTime.Now;
-        ExternalModel.Debt += span.TotalSeconds * ExternalModel.Increase;
-    }
-}
+<DebtsComponent Language="Russian"></DebtsComponent>
