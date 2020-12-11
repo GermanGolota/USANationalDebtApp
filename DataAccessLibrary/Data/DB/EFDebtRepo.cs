@@ -22,14 +22,20 @@ namespace DataAccessLibrary.Data.DB
         }
         public async Task AddDebtToDB(InternalDebtModel model)
         {
-            _context.InternalDebtsAPI.Add(model);
-            _context.SaveChanges();
+            if (!_context.InternalDebtsAPI.Contains(model))
+            {
+                _context.InternalDebtsAPI.Add(model);
+                _context.SaveChanges();
+            }
         }
 
         public async Task AddDebtToDB(ExternalDebtModel model)
         {
-            _context.ExternalDebtsAPI.Add(model);
-            _context.SaveChanges();
+            if (!_context.ExternalDebtsAPI.Contains(model))
+            {
+                _context.ExternalDebtsAPI.Add(model);
+                _context.SaveChanges();
+            }
         }
 
         public async Task CalculateAndInsertNewInfo()
