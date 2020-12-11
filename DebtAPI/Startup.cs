@@ -69,13 +69,14 @@ namespace DebtAPI
             //adds hangfire
             services.AddHangfire(config =>
             {
-                config.UseSqlServerStorage(Configuration.GetConnectionString("Standard"));
+                config.UseSqlServerStorage(Configuration.GetConnectionString("HangfireDB"));
             });
-            JobStorage.Current = new SqlServerStorage(Configuration.GetConnectionString("Standard"));
+            JobStorage.Current = new SqlServerStorage(Configuration.GetConnectionString("HangfireDB"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
+            //adds configuration, that allows for dependency injection
             GlobalConfiguration.Configuration.UseActivator(new HangfireActivator(serviceProvider));
 
             app.UseHangfireServer();
