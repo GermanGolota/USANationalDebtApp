@@ -1,13 +1,16 @@
-﻿using DataAccessLibrary.Models;
+﻿
+using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.DbModels;
+using DataAccessLibrary.Models.DBModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DataAccessLibrary
+namespace DataAccessLibrary.Data.DB
 {
     public interface IDebtData
     {
-        Task AddDebtToDB(DebtModel model);
+        Task AddDebtToDB(InternalDebtModel model);
+        Task AddDebtToDB(ExternalDebtModel model);
         Task CalculateAndInsertNewInfo();
-        Task<List<DebtModel>> GetDebtsFromDB();
     }
 }

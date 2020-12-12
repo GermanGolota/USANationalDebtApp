@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.DbModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,19 +13,21 @@ namespace DebtAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DebtController : ControllerBase
+    public class InternalDebtController : ControllerBase
     {
         private readonly IClientAccess _db;
 
-        public DebtController(IClientAccess db)
+        public InternalDebtController(IClientAccess db)
         {
             this._db = db;
         }
 
         [HttpGet]
-        public async Task<ActionResult<DebtIncreaseModel>> GetDebtModel()
+        public async Task<ActionResult<DebtModelRead>> GetDebtModel()
         {
-            DebtIncreaseModel model = await _db.GetDebtInfo();
+            InternalIncreaseModel dbmodel = await _db.GetInternalDebtInfo();
+            //TODO:add automapper
+            DebtModelRead model = new DebtModelRead {Day =dbmodel.Day,Debt= dbmodel.Debt,Increase=dbmodel.Increase };
             if (model is not null)
             {
                 return Ok(model);

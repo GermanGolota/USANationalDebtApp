@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TestingConsoleApp
 {
-    class MockConfiguration : IConfiguration
+    public class MockConfiguration : IConfiguration
     {
         public string this[string key]
         {

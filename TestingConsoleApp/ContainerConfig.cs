@@ -1,11 +1,11 @@
 ﻿using Autofac;
 using DataAccessLibrary;
-using DataAccessLibrary.Data.Api;
+using DebtAPI;
+using DebtAPI.DB;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 
 
 namespace TestingConsoleApp
@@ -16,14 +16,19 @@ namespace TestingConsoleApp
         {
             var builder = new ContainerBuilder();
 
-            //builder.RegisterType<ConfigurationExtensions>().As<IConfiguration>();
-
-            builder.RegisterType<DebtData>().As<IDebtData>();
+           
             builder.RegisterType<MockConfiguration>().As<IConfiguration>();
-            builder.RegisterType<MockApiDataManager>().As<IApiDataManager>();
+            builder.RegisterType<EFDebtRepo>().As<IDebtData>();
+            builder.RegisterType<DebtContext>();
+            /*
+            builder.RegisterType<ClientAccess>().As<IClientAccess>();
+            
+            builder.RegisterType<DebtAPI>().As<IApiDataManager>();
             builder.RegisterType<MySQLDataAccess>().As<ISQLDataAccess>();
             builder.RegisterType<APISQLBridge>().As<IAPISQLBridge>();
-
+            builder.RegisterType<ModelConverter>().As<IModelConverter>();
+            builder.RegisterType<DebtAPI>().As<IApiDataManager>();
+            builder.RegisterType<APIClient>().As<IAPIClient>() ;*/
 
             return builder.Build();
         }

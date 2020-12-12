@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestingConsoleApp", "TestingConsoleApp\TestingConsoleApp.csproj", "{91A28D31-0720-406C-A159-5BC1A37A2E6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebtAPI", "DebtAPI\DebtAPI.csproj", "{E1DC6264-B9B2-4C18-B6FC-441185BCEB3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebtAPI", "DebtAPI\DebtAPI.csproj", "{E1DC6264-B9B2-4C18-B6FC-441185BCEB3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

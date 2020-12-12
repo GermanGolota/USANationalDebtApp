@@ -1,9 +1,16 @@
 using DataAccessLibrary;
+using DataAccessLibrary.Data.API;
 using DataAccessLibrary.Data.DB;
+using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.ApiModels;
+using DebtAPI.Hangfire;
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -41,32 +48,45 @@ namespace DebtAPI
 
 
             services.AddControllers();
+            //adds API
+            services.AddScoped<IModelConverter, ModelConverter>();
+            services.AddScoped<IAPIClient, APIClient>();
+            services.AddScoped<IApiDataManager, DebtAPIDataManager>();
+            //dbContext
 
+            services.AddDbContext<DebtContext>(
+                opt => opt.UseSqlServer(Configuration.GetConnectionString("Standard"), b => b.MigrationsAssembly(nameof(DebtAPI))));
 
-            //injects client access
-            services.AddScoped<ClientAccess>();
-            services.AddScoped<IClientAccess>(
-                (x) => { return x.GetRequiredService<ClientAccess>(); }
-                );
-            services.AddScoped<MySQLDataAccess>();
-            services.AddScoped<ISQLDataAccess>(
-                (x) => { return x.GetRequiredService<MySQLDataAccess>(); }
-                );
-
+            //Adds repos
+            services.AddScoped<IClientAccess, EFClientRepo>();
+            services.AddScoped<IDebtData, EFDebtRepo>();
             //adds swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DebtAPI", Version = "v1" });
             });
+
+            //adds hangfire
+            services.AddHangfire(config =>
+            {
+                config.UseSqlServerStorage(Configuration.GetConnectionString("HangfireDB"));
+            });
+            JobStorage.Current = new SqlServerStorage(Configuration.GetConnectionString("HangfireDB"));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
+            //adds configuration, that allows for dependency injection
+            GlobalConfiguration.Configuration.UseActivator(new HangfireActivator(serviceProvider));
+
+            app.UseHangfireServer();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DebtAPI v1"));
+                app.UseHangfireDashboard();
             }
 
             app.UseHttpsRedirection();

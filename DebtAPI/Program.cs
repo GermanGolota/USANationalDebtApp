@@ -1,5 +1,14 @@
+using DataAccessLibrary;
+using DataAccessLibrary.Data.API;
+using DataAccessLibrary.Data.DB;
+using DataAccessLibrary.Models;
+using DataAccessLibrary.Models.DbModels;
+using DataAccessLibrary.Models.DBModels;
+using DebtAPI.Hangfire;
+using Hangfire;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,9 +20,18 @@ namespace DebtAPI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
+            {
+                var provider = scope.ServiceProvider;
+                RecurringJob.AddOrUpdate<HangfireActions>("RecalculateJob",
+                    x=>x.RecalculateGrowth(), Cron.Hourly);
+                RecurringJob.AddOrUpdate<HangfireActions>("APIJob",
+                    x => x.GetDataFromAPIAndPutItIntoDB(), Cron.Weekly);
+            }
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

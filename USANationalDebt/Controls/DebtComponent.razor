@@ -1,9 +1,8 @@
-﻿@inject HttpClient Http
-
+﻿
 
 <div class="MainDiv d-flex flex-fill">
     <div class="header text-bold text-center">
-        Внешний долг&NonBreakingSpace;США
+        @Title
     </div>
     <div class="money text-bold text-center trapezoid">
         <div class="money_outline">
@@ -15,46 +14,10 @@
 
 
 @code{
-    Random random = new Random(DateTime.Now.Second);
-    public double Debt = 21198286608971;
-    public double OneSecondIncrement = 2000;
-    private DebtIncreaseModel model;
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        swaggerClient client = new("https://localhost:44333/", Http);
-        model = await client.DebtAsync();
-        TimeSpan span = DateTime.Now - model.Day;
-        model.Day = DateTime.Now;
-        model.Debt += span.TotalSeconds * model.Increase;
-        Debt = model.Debt;
-        OneSecondIncrement = model.Increase;
-        await Start();
-    }
+    [Parameter]
+    public string Title { get; set; }
 
-
-    async Task Start()
-    {
-        await Task.Delay(1000);
-        while (true)
-        {
-            await Timer();
-        }
-
-    }
-
-    async Task Timer()
-    {
-        int delay = random.Next(500, 1500);
-        await Task.Delay(delay);
-        await AfterTime();
-    }
-
-    async Task AfterTime()
-    {
-        double increment =Math.Round(OneSecondIncrement*((double)random.Next(60,140)/100),2);
-        Debt += increment;
-        StateHasChanged();
-    }
+    [Parameter]
+    public double Debt { get; set; }
 }
 

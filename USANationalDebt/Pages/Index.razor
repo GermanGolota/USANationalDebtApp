@@ -1,6 +1,15 @@
 ﻿@page "/"
+    <div class="flex-column">
+        <div class="d-flex justify-content-end">
+            <LanguageSelector LanguageSelected="LanguageSelected"></LanguageSelector>
+        </div>
+        <DebtsComponent Language="@Language"></DebtsComponent>
+    </div>
+    @code{
+        public string Language { get; set; } = "Russian";
 
-
-<div class="container d-flex justify-content-center flex-fill">
-    <DebtComponent></DebtComponent>
-</div>
+        public void LanguageSelected(string language)
+        {
+            Language = language;
+        }
+    }

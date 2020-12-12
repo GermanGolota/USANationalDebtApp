@@ -6,13 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="swagger.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <OpenApiReference Include="swagger.json">
-      <CodeGenerator>NSwagCSharp</CodeGenerator>
-    </OpenApiReference>
+    <OpenApiReference Include="..\..\..\..\Downloads\swagger.json" CodeGenerator="NSwagCSharp" Link="OpenAPIs\swagger.json" />
   </ItemGroup>
 
   <ItemGroup>
