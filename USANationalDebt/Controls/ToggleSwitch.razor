@@ -1,0 +1,18 @@
+﻿
+<label class="switch flex-fill">
+    <input type="checkbox" @onchange="@CheckboxClicked">
+    <span class="slider round"></span>
+</label>
+
+
+
+@code{
+    [Parameter]
+    public EventCallback<bool> CheckedChanged { get; set; }
+
+    public void CheckboxClicked(ChangeEventArgs e)
+    {
+        bool IsChecked = (bool)(e.Value as bool?);
+        CheckedChanged.InvokeAsync(IsChecked);
+    }
+}
