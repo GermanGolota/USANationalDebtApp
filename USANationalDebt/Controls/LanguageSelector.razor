@@ -1,0 +1,29 @@
+﻿
+
+<div class="dropdown">
+    <button class="dropbtn">Language</button>
+    <div class="dropdown-content">
+        <p @onclick="@EnglishSelected">English</p>
+        <p @onclick="@RussianSelected">Russian</p>
+        <p @onclick="@ArabicSelected">Arabic</p>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public EventCallback<string> LanguageSelected { get; set; }
+
+    private void EnglishSelected(MouseEventArgs e)
+    {
+        LanguageSelected.InvokeAsync("English");
+    }
+
+    private void RussianSelected(MouseEventArgs e)
+    {
+        LanguageSelected.InvokeAsync("Russian");
+    }
+
+    private void ArabicSelected(MouseEventArgs e)
+    {
+        LanguageSelected.InvokeAsync("Arabic");
+    }
+}

@@ -4,7 +4,7 @@
 @if (ExternalModel is not null && InternalModel is not null)
 {
     <div class="container d-flex justify-content-center flex-fill">
-        <DebtComponent Title="@(IsChecked?dict[Language]["External"]:dict[Language]["Internal"])"
+        <DebtComponent Title="@(IsChecked?LanguageDictionary[Language]["External"]:LanguageDictionary[Language]["Internal"])"
                        Debt="@(IsChecked?ExternalModel.Debt:InternalModel.Debt)"></DebtComponent>
         <ToggleSwitch CheckedChanged="@ChangeState"></ToggleSwitch>
     </div>
@@ -21,7 +21,7 @@ else
     public string Language { get; set; }
 
     //language : (Name(external/internal):value)
-    public Dictionary<string, Dictionary<string,string>> dict =
+    public Dictionary<string, Dictionary<string,string>> LanguageDictionary =
         new Dictionary<string, Dictionary<string, string>>();
 
     public DebtModelRead ExternalModel { get; set; }
@@ -62,7 +62,17 @@ else
         Dictionary<string, string> RussianDict = new Dictionary<string, string>();
         RussianDict.Add("External", "Внешний долг США");
         RussianDict.Add("Internal", "Внутренний долг США");
-        dict.Add("Russian", RussianDict);
+        LanguageDictionary.Add("Russian", RussianDict);
+
+        Dictionary<string, string> EnglishDict = new Dictionary<string, string>();
+        EnglishDict.Add("External", "Public debt");
+        EnglishDict.Add("Internal", "Intergovernmental debt");
+        LanguageDictionary.Add("English", EnglishDict);
+
+        Dictionary<string, string> ArabicDict = new Dictionary<string, string>();
+        ArabicDict.Add("External", "الديون الخارجية للولايات المتحدة");
+        ArabicDict.Add("Internal", "الديون المحلية الأمريكية");
+        LanguageDictionary.Add("Arabic", ArabicDict);
     }
 
     async Task Start()
