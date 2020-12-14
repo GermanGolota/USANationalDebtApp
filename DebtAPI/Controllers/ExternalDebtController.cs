@@ -13,9 +13,9 @@ namespace DebtAPI.Controllers
     [Route("[controller]")]
     public class ExternalDebtController: ControllerBase
     {
-        private readonly IClientAccess _db;
+        private readonly IClientRepo _db;
 
-        public ExternalDebtController(IClientAccess db)
+        public ExternalDebtController(IClientRepo db)
         {
             this._db = db;
         }

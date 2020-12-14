@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Data.DB
 {
-    public class EFDebtRepo : IDebtData
+    public class EFDebtRepo : ISystemRepo
     {
         private readonly DebtContext _context;
         private readonly IModelConverter _converter;

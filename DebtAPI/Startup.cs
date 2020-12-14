@@ -58,8 +58,8 @@ namespace DebtAPI
                 opt => opt.UseSqlServer(Configuration.GetConnectionString("Standard"), b => b.MigrationsAssembly(nameof(DebtAPI))));
 
             //Adds repos
-            services.AddScoped<IClientAccess, EFClientRepo>();
-            services.AddScoped<IDebtData, EFDebtRepo>();
+            services.AddScoped<IClientRepo, EFClientRepo>();
+            services.AddScoped<ISystemRepo, EFDebtRepo>();
             //adds swagger
             services.AddSwaggerGen(c =>
             {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Data.DB
 {
-    public class EFClientRepo : IClientAccess
+    public class EFClientRepo : IClientRepo
     {
         private readonly DebtContext _context;
 
