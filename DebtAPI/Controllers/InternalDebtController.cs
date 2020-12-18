@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace DebtAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class InternalDebtController : ControllerBase
     {
         private readonly IClientRepo _db;
