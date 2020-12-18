@@ -30,8 +30,7 @@ namespace DataAccessLibrary.Data.API
                 {
                     string modelsString = await response.Content.ReadAsStringAsync();
                     DebtAPIArray models = JsonConvert.DeserializeObject<DebtAPIArray>(modelsString);
-                    List<KeyValuePair<InternalDebtModel, ExternalDebtModel>> output = 
-                        new List<KeyValuePair<InternalDebtModel, ExternalDebtModel>>();
+                    var output = new List<KeyValuePair<InternalDebtModel, ExternalDebtModel>>();
                     foreach (DebtAPIModel model in models.data)
                     {
                         output.Add(_converter.ConvertModelFromAPI(model));

@@ -37,5 +37,30 @@ namespace DebtAPI.Controllers
                 return NotFound();
             }
         }
+        [HttpGet("{mode}")]
+        public async Task<ActionResult<DebtModelRead>> GetDebtModel(string mode)
+        {
+            switch (mode)
+            {
+                case "now":
+                    InternalIncreaseModel dbmodel = await _db.GetInternalDebtInfo();
+                    DebtModelRead model = new DebtModelRead { Day = dbmodel.Day, Debt = dbmodel.Debt, Increase = dbmodel.Increase };
+                    if (model is not null)
+                    {
+                        TimeSpan timeElapsed = DateTime.Now - model.Day;
+                        double increase = timeElapsed.TotalSeconds * model.Increase;
+                        model.Debt += increase;
+                        model.Day = DateTime.Now;
+                        return Ok(model);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                case "lase":
+                    return await GetDebtModel();
+                default: return BadRequest();
+            }
+        }
     }
 }
