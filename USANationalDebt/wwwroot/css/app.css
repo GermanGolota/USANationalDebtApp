@@ -7,9 +7,250 @@
 }
 
 body {
-    background-image: url(https://images.ua.prom.st/1683087314_w640_h640_flag-ssha.jpg);
+    background-image: url(../Images/usa2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
+    display: flex;
+    justify-content: center;
     padding: 0;
+    /* added */
+    width: 100vw;
+    height: 100vh;
+    /* added */
 }
+
+/* added */
+.DebtSelector {
+    display: flex;
+    justify-content: center;
+}
+
+.DebtsComponent {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+}
+
+.page {
+    width: 100vw;
+    height: 100vh;
+}
+
+.LanguageSelector {
+    display: flex;
+    margin-left: 20%;
+}
+/* added */
+
+.DebtComponent {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 30vh;
+    width: 80vw;
+    margin: 0 auto;
+    text-align: center;
+    color: #fff;
+}
+
+.money {
+    background: #d3d9d5;
+    width: 90%;
+    height: 75%;
+    border-radius: 50px;
+    color: white;
+    border: 4px solid red;
+    z-index: -1;
+    margin: 0 auto;
+    box-shadow: 0px 0px 20px 14px rgba(255, 25, 25, 0.4);
+}
+
+.trapezoid {
+    transform: perspective(100px) rotateX(1deg);
+}
+
+.header {
+    background: #d3d9d5;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    margin-left: -40%;
+    width: 80%;
+    height: 25%;
+    border-radius: 25px;
+    border: 1px solid black;
+    color: black;
+}
+
+.money_text {
+    color: red;
+    font-size: 4rem;
+}
+
+.money_outline {
+    border: 4px solid #908886;
+    border-radius: 50px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-center {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-family: "Arial";
+    text-transform: uppercase;
+}
+
+.text-bold {
+    font-weight: 900;
+}
+
+@media screen and (max-width: 800px) {
+    .header {
+        font-size: 1.7rem;
+    }
+
+    body {
+        background-image: url(../Images/usa.png);
+    }
+
+    .money_text {
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .header {
+        font-size: 1.15rem;
+    }
+
+    .money_text {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .header {
+        font-size: 1rem;
+    }
+
+    .money_text {
+        font-size: 1.25rem;
+    }
+}
+
+.dropbtn {
+    background-color: #f2321f;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 160px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+    .dropdown-content p {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        .dropdown-content p:hover {
+            background-color: #f1f1f1;
+        }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    /* added */
+    width: 60px;
+    /* added */
+    height: 34px;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+    }
+
+input:checked + .slider {
+    background-color: #2196f3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
