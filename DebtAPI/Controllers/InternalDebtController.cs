@@ -57,7 +57,7 @@ namespace DebtAPI.Controllers
                     {
                         return NotFound();
                     }
-                case "lase":
+                case "last":
                     return await GetDebtModel();
                 default: return BadRequest();
             }
