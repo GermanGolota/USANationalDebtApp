@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Data.DB
 {
-    public interface IClientAccess
+    public interface IClientRepo
     {
         Task<InternalIncreaseModel> GetInternalDebtInfo();
 

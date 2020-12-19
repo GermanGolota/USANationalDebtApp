@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Data.DB
 {
-    public interface IDebtData
+    public interface ISystemRepo
     {
         Task AddDebtToDB(InternalDebtModel model);
         Task AddDebtToDB(ExternalDebtModel model);

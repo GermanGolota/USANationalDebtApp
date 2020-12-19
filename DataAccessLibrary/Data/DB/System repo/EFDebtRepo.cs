@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Data.DB
 {
-    public class EFDebtRepo : IDebtData
+    public class EFDebtRepo : ISystemRepo
     {
         private readonly DebtContext _context;
         private readonly IModelConverter _converter;
@@ -58,20 +58,50 @@ namespace DataAccessLibrary.Data.DB
         private IncreaseModelBase CalculateIncreaseModel(IEnumerable<DebtModelBase> models)
         {
             models = models.OrderBy((debt) => debt.Day).ToList();
+            List<DebtModelBase> modelsList = models.ToList();
+
+            double predictedValue = PredictValue(modelsList);
+
             DebtModelBase higher = models.Last();
             DebtModelBase lower = models.First();
-            double diff = higher.Debt - lower.Debt;
-            TimeSpan time = higher.Day - lower.Day;
-            double increment = diff / time.TotalSeconds;
-            TimeSpan span = DateTime.Now - higher.Day;
-            double currentDebt = higher.Debt + span.TotalSeconds * increment;
+
+            double increment = CalculateOneSecondIncrement(higher, lower);
+
             IncreaseModelBase model = new IncreaseModelBase
             {
                 Day = DateTime.Now,
-                Debt = currentDebt,
+                Debt = predictedValue,
                 Increase = increment
             };
             return model;
         }
+        private double CalculateOneSecondIncrement(DebtModelBase higher, DebtModelBase lower)
+        {
+            double diff = higher.Debt - lower.Debt;
+            TimeSpan time = higher.Day - lower.Day;
+            double increment = diff / time.TotalSeconds;
+            return increment;
+        }
+        private double PredictValue(List<DebtModelBase> models)
+        {
+            List<DateTime> dates = new List<DateTime>();
+            List<double> values = new List<double>();
+            for (int i = 0; i < models.Count; i++)
+            {
+                dates.Add(models[i].Day);
+                values.Add(models[i].Debt);
+            }
+
+            List<double> datesAsDouble = new List<double>();
+            for (int i = 0; i < dates.Count; i++)
+            {
+                datesAsDouble.Add((dates[i] - new DateTime()).TotalSeconds);
+            }
+
+            var algo = new LinearPredictionAlgorithm(datesAsDouble, values);
+            double predictedValue = algo.predictValue((DateTime.Now - new DateTime()).TotalSeconds);
+            return predictedValue;
+        }
+
     }
 }

@@ -11,10 +11,10 @@ namespace DebtAPI.Hangfire
 {
     public class HangfireActions
     {
-        private readonly IDebtData _db;
+        private readonly ISystemRepo _db;
         private readonly IApiDataManager _api;
 
-        public HangfireActions(IDebtData DB, IApiDataManager API)
+        public HangfireActions(ISystemRepo DB, IApiDataManager API)
         {
             _db = DB;
             _api = API;
