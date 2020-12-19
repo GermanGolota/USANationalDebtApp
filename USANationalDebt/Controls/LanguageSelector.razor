@@ -1,28 +1,19 @@
 ﻿
-<div class="dropdown">
-    <button class="dropbtn">Language</button>
-    <div class="dropdown-content">
-        <p @onclick="@EnglishSelected">English</p>
-        <p @onclick="@RussianSelected">Русский</p>
-        <p @onclick="@ArabicSelected">عربى</p>
-    </div>
-</div>
+<select @onchange="LanguageChanged" class="select-css">
+    <option value="Russian">Русский</option>
+    <option value="English">English</option>
+    <option value="Arabic">عربى</option>
+</select>
+
+
 @code {
     [Parameter]
     public EventCallback<string> LanguageSelected { get; set; }
 
-    private void EnglishSelected(MouseEventArgs e)
+    private void LanguageChanged(ChangeEventArgs e)
     {
-        LanguageSelected.InvokeAsync("English");
+        string culture = (string)e.Value;
+        LanguageSelected.InvokeAsync(culture);
     }
 
-    private void RussianSelected(MouseEventArgs e)
-    {
-        LanguageSelected.InvokeAsync("Russian");
-    }
-
-    private void ArabicSelected(MouseEventArgs e)
-    {
-        LanguageSelected.InvokeAsync("Arabic");
-    }
 }
