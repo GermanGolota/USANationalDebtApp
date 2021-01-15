@@ -22,19 +22,21 @@ namespace DataAccessLibrary.Data.DB
         }
         public async Task AddDebtToDB(InternalDebtModel model)
         {
-            List<InternalDebtModel> models = _context.InternalDebtsAPI.ToList();
-            List<InternalDebtModel> dbmodel = models.Where(x => x.Day == model.Day).ToList();
+            List<InternalDebtModel> dbmodel = _context.InternalDebtsAPI.Where(x => x.Time == model.Time).ToList();
             if(dbmodel.Count==0)
             {
                 _context.InternalDebtsAPI.Add(model);
                 _context.SaveChanges();
             }
+            else
+            {
+                //log
+            }
         }
 
         public async Task AddDebtToDB(ExternalDebtModel model)
         {
-            List<ExternalDebtModel> models = _context.ExternalDebtsAPI.ToList();
-            List<ExternalDebtModel> dbmodel = models.Where(x => x.Day == model.Day).ToList();
+            List<ExternalDebtModel> dbmodel = _context.ExternalDebtsAPI.Where(x => x.Time == model.Time).ToList();
             if (dbmodel.Count == 0)
             {
                 _context.ExternalDebtsAPI.Add(model);
@@ -57,7 +59,7 @@ namespace DataAccessLibrary.Data.DB
 
         private IncreaseModelBase CalculateIncreaseModel(IEnumerable<DebtModelBase> models)
         {
-            models = models.OrderBy((debt) => debt.Day).ToList();
+            models = models.OrderBy((debt) => debt.Time).ToList();
             List<DebtModelBase> modelsList = models.ToList();
 
             double predictedValue = PredictValue(modelsList);
@@ -69,7 +71,7 @@ namespace DataAccessLibrary.Data.DB
 
             IncreaseModelBase model = new IncreaseModelBase
             {
-                Day = DateTime.Now,
+                Time = DateTime.Now,
                 Debt = predictedValue,
                 Increase = increment
             };
@@ -78,7 +80,7 @@ namespace DataAccessLibrary.Data.DB
         private double CalculateOneSecondIncrement(DebtModelBase higher, DebtModelBase lower)
         {
             double diff = higher.Debt - lower.Debt;
-            TimeSpan time = higher.Day - lower.Day;
+            TimeSpan time = higher.Time - lower.Time;
             double increment = diff / time.TotalSeconds;
             return increment;
         }
@@ -88,7 +90,7 @@ namespace DataAccessLibrary.Data.DB
             List<double> values = new List<double>();
             for (int i = 0; i < models.Count; i++)
             {
-                dates.Add(models[i].Day);
+                dates.Add(models[i].Time);
                 values.Add(models[i].Debt);
             }
 
