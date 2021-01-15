@@ -7,6 +7,10 @@ namespace Core.Entities
 {
     public class ExternalIncreaseModel : IncreaseModelBase
     {
+        private ExternalIncreaseModel()
+        {
+
+        }
         public ExternalIncreaseModel(DateTime day, double debt, double increase)
         {
             Time = day;

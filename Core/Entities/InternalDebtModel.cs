@@ -8,6 +8,10 @@ namespace Core.Entities
 {
     public class InternalDebtModel : DebtModelBase
     {
+        private InternalDebtModel()
+        {
+
+        }
         public InternalDebtModel(DateTime day, double debt)
         {
             Time = day;
