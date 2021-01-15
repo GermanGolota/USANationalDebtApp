@@ -9,7 +9,7 @@ namespace DataAccessLibrary.Models.DBModels
     {
         public ExternalIncreaseModel(DateTime day, double debt, double increase)
         {
-            Day = day;
+            Time = day;
             Debt = debt;
             Increase = increase;
         }

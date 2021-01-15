@@ -10,7 +10,7 @@ namespace DataAccessLibrary.Models.DbModels
     {
         public ExternalDebtModel(DateTime day, double debt)
         {
-            Day = day;
+            Time = day;
             Debt = debt;
         }
     }

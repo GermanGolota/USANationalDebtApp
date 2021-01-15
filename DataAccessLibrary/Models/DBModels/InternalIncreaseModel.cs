@@ -10,7 +10,7 @@ namespace DataAccessLibrary.Models.DbModels
     {
         public InternalIncreaseModel(DateTime day, double debt, double increase )
         {
-            Day = day;
+            Time = day;
             Debt = debt;
             Increase = increase;
         }
