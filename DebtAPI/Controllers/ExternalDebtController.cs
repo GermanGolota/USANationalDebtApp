@@ -25,7 +25,7 @@ namespace DebtAPI.Controllers
         {
             ExternalIncreaseModel dbmodel = await _db.GetExternalDebtInfo();
             //TODO:add automapper
-            DebtModelRead model = new DebtModelRead { Day = dbmodel.Day, Debt = dbmodel.Debt, Increase = dbmodel.Increase };
+            DebtModelRead model = new DebtModelRead { Day = dbmodel.Time, Debt = dbmodel.Debt, Increase = dbmodel.Increase };
             if (model is not null)
             {
                 return Ok(model);
@@ -42,7 +42,7 @@ namespace DebtAPI.Controllers
             {
                 case "now":
                     ExternalIncreaseModel dbmodel = await _db.GetExternalDebtInfo();
-                    DebtModelRead model = new DebtModelRead { Day = dbmodel.Day, Debt = dbmodel.Debt, Increase = dbmodel.Increase };
+                    DebtModelRead model = new DebtModelRead { Day = dbmodel.Time, Debt = dbmodel.Debt, Increase = dbmodel.Increase };
                     if (model is not null)
                     {
                         TimeSpan timeElapsed = DateTime.Now - model.Day;

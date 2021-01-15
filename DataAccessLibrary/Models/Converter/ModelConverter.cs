@@ -21,12 +21,12 @@ namespace DataAccessLibrary.Models
         }
         public ExternalIncreaseModel ConvertExternalFromBaseModel(IncreaseModelBase model)
         {
-            ExternalIncreaseModel externalModel = new ExternalIncreaseModel(model.Day, model.Debt, model.Increase);
+            ExternalIncreaseModel externalModel = new ExternalIncreaseModel(model.Time, model.Debt, model.Increase);
             return externalModel;
         }
         public InternalIncreaseModel ConvertInternalFromBaseModel(IncreaseModelBase model)
         {
-            InternalIncreaseModel internalModel = new InternalIncreaseModel(model.Day, model.Debt, model.Increase);
+            InternalIncreaseModel internalModel = new InternalIncreaseModel(model.Time, model.Debt, model.Increase);
             return internalModel;
         }
     }
