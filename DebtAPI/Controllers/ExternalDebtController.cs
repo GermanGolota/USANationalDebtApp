@@ -1,6 +1,6 @@
-﻿using DataAccessLibrary.Data.DB;
+﻿using Core.Entities;
+using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
-using DataAccessLibrary.Models.DBModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

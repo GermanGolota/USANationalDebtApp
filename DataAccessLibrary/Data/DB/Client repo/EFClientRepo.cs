@@ -1,7 +1,7 @@
-﻿using DataAccessLibrary.Data.DB;
+﻿using Core;
+using Core.Entities;
+using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
-using DataAccessLibrary.Models.DbModels;
-using DataAccessLibrary.Models.DBModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

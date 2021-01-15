@@ -6,8 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using DataAccessLibrary.Models.ApiModels;
-using DataAccessLibrary.Models.DbModels;
-using DataAccessLibrary.Models.DBModels;
+using Core.Entities;
 
 namespace DataAccessLibrary.Data.API
 {

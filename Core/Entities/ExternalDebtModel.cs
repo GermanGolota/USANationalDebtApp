@@ -1,10 +1,9 @@
-﻿using DataAccessLibrary.Models.DBModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace DataAccessLibrary.Models.DbModels
+namespace Core.Entities
 {
     public class ExternalDebtModel:DebtModelBase
     {

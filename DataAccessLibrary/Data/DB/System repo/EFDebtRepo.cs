@@ -1,8 +1,8 @@
-﻿using DataAccessLibrary;
+﻿using Core;
+using Core.Entities;
+using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using DataAccessLibrary.Models.ApiModels;
-using DataAccessLibrary.Models.DbModels;
-using DataAccessLibrary.Models.DBModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

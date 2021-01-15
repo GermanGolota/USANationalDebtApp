@@ -2,8 +2,6 @@ using DataAccessLibrary;
 using DataAccessLibrary.Data.API;
 using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
-using DataAccessLibrary.Models.DbModels;
-using DataAccessLibrary.Models.DBModels;
 using DebtAPI.Hangfire;
 using Hangfire;
 using Microsoft.AspNetCore.Hosting;

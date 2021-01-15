@@ -1,6 +1,5 @@
-﻿using DataAccessLibrary.Models.ApiModels;
-using DataAccessLibrary.Models.DbModels;
-using DataAccessLibrary.Models.DBModels;
+﻿using Core.Entities;
+using DataAccessLibrary.Models.ApiModels;
 using System.Collections.Generic;
 
 namespace DataAccessLibrary.Models

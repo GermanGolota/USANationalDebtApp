@@ -1,15 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataAccessLibrary.Models.DBModels
+namespace Core.Entities
 {
-    public class IncreaseModelBase
+    public class DebtModelBase
     {
         [Key]
         public DateTime Time { get; set; }
         [Required]
         public double Debt { get; set; }
-        [Required]
-        public double Increase { get; set; }
     }
 }
