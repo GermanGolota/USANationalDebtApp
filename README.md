@@ -11,9 +11,11 @@ Application, that allows its users to get partly accurate data about current sta
 This application can be installed via the docker container:
 </br>
 1) Download compose file from <a href="https://drive.google.com/file/d/1eihBT-KfiwpFB03HJsV6BRXVUcMicIvH/view?usp=sharing">here</a>
-2) Run:
-<code>docker-compose up *file-location*</code>
-where file-location is the location of the downloaded compose file
+</br>
+2)Navigate to folder, that contains downloaded file
+</br>
+3) Run:
+<code>docker-compose up</code>
 </br>
 Note: If the SQL Server container have not been able to start up in time for WebAPI container, then WebAPI container would reload and try to connect again
 <a href="#Content"><h2 id="Second">2 - Design overview</h2></a>
