@@ -21,13 +21,13 @@ namespace DataAccessLibrary.Data.DB
 
         public async Task<ExternalIncreaseModel> GetExternalDebtInfo()
         {
-            ExternalIncreaseModel model = await _context.ExternalDebtsInfo.LastOrDefaultAsync();
+            ExternalIncreaseModel model = await _context.ExternalDebtsInfo.OrderBy(x=>x.Time).LastOrDefaultAsync();
             return model;
         }
 
         public async Task<InternalIncreaseModel> GetInternalDebtInfo()
         {
-            InternalIncreaseModel model = await _context.InternalDebtsInfo.LastOrDefaultAsync();
+            InternalIncreaseModel model = await _context.InternalDebtsInfo.OrderBy(x => x.Time).LastOrDefaultAsync();
             return model;
         }
     }
