@@ -33,7 +33,7 @@ namespace USANationalDebt.Controls
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            swaggerClient client = new("http://localhost:44333/", Http);
+            swaggerClient client = new("https://localhost:44333/", Http);
 
             ExternalModel = await client.ExternalDebtAsync();
             InternalModel = await client.InternalDebtAsync();
