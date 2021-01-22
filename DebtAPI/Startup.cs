@@ -1,3 +1,4 @@
+using Core;
 using DataAccessLibrary;
 using DataAccessLibrary.Data.API;
 using DataAccessLibrary.Data.DB;
@@ -41,22 +42,28 @@ namespace DebtAPI
                     options.AddPolicy(name: "WebAssemblyAppPolicy",
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:44394", "https://localhost:5001")
-                          .WithMethods("GET");
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
                     });
                 });
 
-
+            var server = Configuration["DBServer"] ?? "localhost";
+            var port = Configuration["DBPort"] ?? "1433";
+            var user = Configuration["DBUser"] ?? "SA";
+            var password = Configuration["Password"] ?? "Password123";
+            var debtDB = Configuration["DBName"] ?? "UsaDebtsDb";
+            string connectionString = $"Server={server},{port};Initial Catalog={debtDB};" +
+                $"User ID={user};Password={password}";
             services.AddControllers();
             //adds API
             services.AddScoped<IModelConverter, ModelConverter>();
             services.AddScoped<IAPIClient, APIClient>();
             services.AddScoped<IApiDataManager, DebtAPIDataManager>();
             //dbContext
-
             services.AddDbContext<DebtContext>(
-                opt => opt.UseSqlServer(Configuration.GetConnectionString("Standard"), b => b.MigrationsAssembly(nameof(DebtAPI))));
-
+                opt => opt.UseSqlServer(connectionString,
+                b => b.MigrationsAssembly(nameof(DataAccessLibrary))));
             //Adds repos
             services.AddScoped<IClientRepo, EFClientRepo>();
             services.AddScoped<ISystemRepo, EFDebtRepo>();
@@ -65,13 +72,18 @@ namespace DebtAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DebtAPI", Version = "v1" });
             });
+            Console.WriteLine($"Connection to - {debtDB} on {connectionString}");
+            var options = new SqlServerStorageOptions();
+            options.SchemaName = "hangfire_db";
+            options.PrepareSchemaIfNecessary = true;
+            GlobalConfiguration.Configuration
+                .UseSqlServerStorage(connectionString, options);
 
-            //adds hangfire
             services.AddHangfire(config =>
             {
-                config.UseSqlServerStorage(Configuration.GetConnectionString("HangfireDB"));
+                config.UseSqlServerStorage(connectionString, options);
             });
-            JobStorage.Current = new SqlServerStorage(Configuration.GetConnectionString("HangfireDB"));
+            JobStorage.Current = new SqlServerStorage(connectionString, options);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)

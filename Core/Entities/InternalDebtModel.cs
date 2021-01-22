@@ -4,13 +4,17 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace DataAccessLibrary.Models.DBModels
+namespace Core.Entities
 {
     public class InternalDebtModel : DebtModelBase
     {
+        private InternalDebtModel()
+        {
+
+        }
         public InternalDebtModel(DateTime day, double debt)
         {
-            Day = day;
+            Time = day;
             Debt = debt;
         }
     }

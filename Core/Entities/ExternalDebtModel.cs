@@ -1,16 +1,19 @@
-﻿using DataAccessLibrary.Models.DBModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace DataAccessLibrary.Models.DbModels
+namespace Core.Entities
 {
     public class ExternalDebtModel:DebtModelBase
     {
+        private ExternalDebtModel()
+        {
+
+        }
         public ExternalDebtModel(DateTime day, double debt)
         {
-            Day = day;
+            Time = day;
             Debt = debt;
         }
     }

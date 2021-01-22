@@ -1,12 +1,10 @@
-﻿using DataAccessLibrary.Models;
-using DataAccessLibrary.Models.DbModels;
-using DataAccessLibrary.Models.DBModels;
+﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccessLibrary.Data.DB
+namespace Core
 {
     public class DebtContext:DbContext
     {

@@ -1,0 +1,30 @@
+version: "3"
+services:
+  msSqlServer:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Password123"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+  api:
+    image: yaroslavholota/debt_api
+    environment:
+      DBServer: "msSqlServer"
+      DBPort: "1433"
+      DBUser: "SA"
+      PassPassword: "Password123"
+    ports:
+      - "44333:5000"
+      - "44334:5001"
+    depends_on:
+      - "msSqlServer"
+    restart: unless-stopped
+  ui:
+    image: yaroslavholota/debt_ui
+    depends_on:
+      - "api"
+      - "msSqlServer"
+    ports:
+      - "8080:80"

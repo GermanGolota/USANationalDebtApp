@@ -1,7 +1,5 @@
-﻿
+﻿using Core.Entities;
 using DataAccessLibrary.Models;
-using DataAccessLibrary.Models.DbModels;
-using DataAccessLibrary.Models.DBModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

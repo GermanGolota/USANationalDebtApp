@@ -1,16 +1,19 @@
-﻿using DataAccessLibrary.Models.DBModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace DataAccessLibrary.Models.DbModels
+namespace Core.Entities
 {
     public class InternalIncreaseModel:IncreaseModelBase
     {
+        private InternalIncreaseModel()
+        {
+
+        }
         public InternalIncreaseModel(DateTime day, double debt, double increase )
         {
-            Day = day;
+            Time = day;
             Debt = debt;
             Increase = increase;
         }

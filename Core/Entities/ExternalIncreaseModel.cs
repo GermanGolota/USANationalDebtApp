@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace DataAccessLibrary.Models.DBModels
+namespace Core.Entities
 {
     public class ExternalIncreaseModel : IncreaseModelBase
     {
+        private ExternalIncreaseModel()
+        {
+
+        }
         public ExternalIncreaseModel(DateTime day, double debt, double increase)
         {
-            Day = day;
+            Time = day;
             Debt = debt;
             Increase = increase;
         }

@@ -1,12 +1,12 @@
+using Core;
 using DataAccessLibrary;
 using DataAccessLibrary.Data.API;
 using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
-using DataAccessLibrary.Models.DbModels;
-using DataAccessLibrary.Models.DBModels;
 using DebtAPI.Hangfire;
 using Hangfire;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,10 +26,18 @@ namespace DebtAPI
             using (var scope = host.Services.CreateScope())
             {
                 var provider = scope.ServiceProvider;
-                RecurringJob.AddOrUpdate<HangfireActions>("RecalculateJob",
+                string recalculationJob = "RecalculateJob";
+                string APIjob = "APIJob";
+                using (var context = provider.GetRequiredService<DebtContext>())
+                {
+                    context.Database.Migrate();
+                }
+                RecurringJob.AddOrUpdate<HangfireActions>(recalculationJob,
                     x=>x.RecalculateGrowth(), Cron.Hourly);
-                RecurringJob.AddOrUpdate<HangfireActions>("APIJob",
+                RecurringJob.AddOrUpdate<HangfireActions>(APIjob,
                     x => x.GetDataFromAPIAndPutItIntoDB(), Cron.Weekly);
+                RecurringJob.Trigger(recalculationJob);
+                RecurringJob.Trigger(APIjob);
             }
             host.Run();
         }

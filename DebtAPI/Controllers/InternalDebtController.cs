@@ -1,7 +1,7 @@
-﻿using DataAccessLibrary;
+﻿using Core.Entities;
+using DataAccessLibrary;
 using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
-using DataAccessLibrary.Models.DbModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -27,7 +27,7 @@ namespace DebtAPI.Controllers
         {
             InternalIncreaseModel dbmodel = await _db.GetInternalDebtInfo();
             //TODO:add automapper
-            DebtModelRead model = new DebtModelRead {Day =dbmodel.Day,Debt= dbmodel.Debt,Increase=dbmodel.Increase };
+            DebtModelRead model = new DebtModelRead {Day =dbmodel.Time,Debt= dbmodel.Debt,Increase=dbmodel.Increase };
             if (model is not null)
             {
                 return Ok(model);
@@ -44,7 +44,7 @@ namespace DebtAPI.Controllers
             {
                 case "now":
                     InternalIncreaseModel dbmodel = await _db.GetInternalDebtInfo();
-                    DebtModelRead model = new DebtModelRead { Day = dbmodel.Day, Debt = dbmodel.Debt, Increase = dbmodel.Increase };
+                    DebtModelRead model = new DebtModelRead { Day = dbmodel.Time, Debt = dbmodel.Debt, Increase = dbmodel.Increase };
                     if (model is not null)
                     {
                         TimeSpan timeElapsed = DateTime.Now - model.Day;
@@ -57,7 +57,7 @@ namespace DebtAPI.Controllers
                     {
                         return NotFound();
                     }
-                case "lase":
+                case "last":
                     return await GetDebtModel();
                 default: return BadRequest();
             }
