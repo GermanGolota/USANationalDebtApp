@@ -14,11 +14,13 @@ namespace DataAccessLibrary.Data.DB
     {
         private readonly DebtContext _context;
         private readonly IModelConverter _converter;
+        private readonly IPredictionAlgorithm _algo;
 
-        public EFDebtRepo(DebtContext context, IModelConverter converter)
+        public EFDebtRepo(DebtContext context, IModelConverter converter, IPredictionAlgorithm algo)
         {
             this._context = context;
             this._converter = converter;
+            this._algo = algo;
         }
         public async Task AddDebtToDB(InternalDebtModel model)
         {
@@ -100,8 +102,8 @@ namespace DataAccessLibrary.Data.DB
                 datesAsDouble.Add((dates[i] - new DateTime()).TotalSeconds);
             }
 
-            var algo = new LinearPredictionAlgorithm(datesAsDouble, values);
-            double predictedValue = algo.predictValue((DateTime.Now - new DateTime()).TotalSeconds);
+            double timeNowInSecond = (DateTime.Now - new DateTime()).TotalSeconds;
+            double predictedValue = _algo.PredictValue(datesAsDouble, values, timeNowInSecond);
             return predictedValue;
         }
 
