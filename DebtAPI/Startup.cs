@@ -1,5 +1,6 @@
 using Core;
 using DataAccessLibrary;
+using DataAccessLibrary.Data;
 using DataAccessLibrary.Data.API;
 using DataAccessLibrary.Data.DB;
 using DataAccessLibrary.Models;
@@ -65,6 +66,7 @@ namespace DebtAPI
                 opt => opt.UseSqlServer(connectionString,
                 b => b.MigrationsAssembly(nameof(DataAccessLibrary))));
             //Adds repos
+            services.AddScoped<IPredictionAlgorithm, LinearPredictionAlgorithm>();
             services.AddScoped<IClientRepo, EFClientRepo>();
             services.AddScoped<ISystemRepo, EFDebtRepo>();
             //adds swagger
