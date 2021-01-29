@@ -2,22 +2,33 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccessLibrary.Data.DB
+namespace DataAccessLibrary.Data
 {
-    public class LinearPredictionAlgorithm
+    public class LinearPredictionAlgorithm : IPredictionAlgorithm
     {
         private List<double> xValues;
         private List<double> yValues;
 
-        public LinearPredictionAlgorithm(List<double> x, List<double> y)
+        public double PredictValue(List<double> xValues, List<double> yValues, double inputValue)
         {
-            xValues = x;
-            yValues = y;
+            this.xValues = xValues;
+            this.yValues = yValues;
+            return this.CalculateLinearPrediction(inputValue);
         }
-
+        private double CalculateLinearPrediction(double inputValue)
+        {
+            double X1 = xValues[0];
+            double Y1 = yValues[0];
+            double Xmean = getAvgX(xValues);
+            double Ymean = getAvgY(yValues);
+            double lineSlope = getLineSlope(Xmean, Ymean, X1, Y1);
+            double YIntercept = getYIntercept(Xmean, Ymean, lineSlope);
+            double prediction = (lineSlope * inputValue) + YIntercept;
+            return prediction;
+        }
         private double getAvgX(List<double> Xdata)
         {
-            double sum= 0.0f;
+            double sum = 0.0f;
             for (int i = 0; i < Xdata.Count; i++)
             {
                 sum += Xdata[i];
@@ -29,7 +40,7 @@ namespace DataAccessLibrary.Data.DB
             double sum = 0;
             for (int i = 0; i < Ydata.Count; i++)
             {
-                sum+= Ydata[i];
+                sum += Ydata[i];
             }
             return sum / Ydata.Count;
         }
@@ -44,17 +55,6 @@ namespace DataAccessLibrary.Data.DB
         private double getYIntercept(double Xmean, double Ymean, double lineSlope)
         {
             return Ymean - (lineSlope * Xmean);
-        }
-        public double predictValue(double inputValue)
-        {
-            double X1 = xValues[0];
-            double Y1 = yValues[0];
-            double Xmean = getAvgX(xValues);
-            double Ymean = getAvgY(yValues);
-            double lineSlope = getLineSlope(Xmean, Ymean, X1, Y1);
-            double YIntercept = getYIntercept(Xmean, Ymean, lineSlope);
-            double prediction = (lineSlope * inputValue) + YIntercept;
-            return prediction;
         }
     }
 }
